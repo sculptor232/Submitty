@@ -467,7 +467,9 @@ CREATE TABLE users (
     instructor_updated boolean NOT NULL DEFAULT false,
     manual_registration boolean DEFAULT false,
     last_updated timestamp(6) with time zone,
-    CONSTRAINT users_user_group_check CHECK ((user_group >= 1) AND (user_group <= 4))
+    CONSTRAINT users_user_group_check CHECK ((user_group >= 1) AND (user_group <= 4)),
+    mute_forum boolean NOT NULL DEFAULT false,
+    mute_oh_queue boolean NOT NULL DEFAULT false
 );
 
 CREATE INDEX users_user_numeric_id_idx ON users using btree (

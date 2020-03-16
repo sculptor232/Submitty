@@ -219,6 +219,10 @@ function completeUserFormInformation(user) {
     $('[name="user_preferred_lastname"]').change();
     $('[name="user_email"]', form).val(user['user_email']);
     $('[name="user_email"]').change();
+    $('[name="mute_forum"]', form).prop('checked', user['mute_forum']);
+    $('[name="mute_forum"]').change();
+    $('[name="mute_oh_queue"]', form).prop('checked', user['mute_oh_queue']);
+    $('[name="mute_oh_queue"]').change();
     var registration_section;
     if (user['registration_section'] === null) {
         registration_section = "null";
@@ -266,7 +270,9 @@ function clearUserFormInformation() {
     $('[name="user_preferred_firstname"]', form).val("");
     $('[name="user_lastname"]', form).val("");
     $('[name="user_preferred_lastname"]', form).val("");
-    $('[name="user_email"]', form).val("");
+    $('[name="user_email"]', form).prop('checked', false);
+    $('[name="mute_forum"]', form).prop('checked', false);
+    $('[name="mute_oh_queue"]', form).val("");
     $('[name="registered_section"] option[value="null"]', form).prop('selected', true);
     $('[name="rotating_section"] option[value="null"]', form).prop('selected', true);
     $('[name="manual_registration"]', form).prop('checked', true);

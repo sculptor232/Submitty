@@ -847,8 +847,11 @@ VALUES (?,?,?,?,?,?)",
             $params
         );
 
-        $params = array($user->getRotatingSection(), $user->getId());
-        $this->course_db->query("UPDATE users SET rotating_section=? WHERE user_id=?", $params);
+        $params = array($user->getRotatingSection(),
+                        $this->submitty_db->convertBoolean($user->getMuteForum()),
+                        $this->submitty_db->convertBoolean($user->getMuteOhQueue()),
+                        $user->getId());
+        $this->course_db->query("UPDATE users SET rotating_section=?, mute_forum=?, mute_oh_queue=? WHERE user_id=?", $params);
         $this->updateGradingRegistration($user->getId(), $user->getGroup(), $user->getGradingRegistrationSections());
     }
 
@@ -897,8 +900,11 @@ WHERE semester=? AND course=? AND user_id=?",
                 $params
             );
 
-            $params = array($user->getAnonId(), $user->getRotatingSection(), $user->getId());
-            $this->course_db->query("UPDATE users SET anon_id=?, rotating_section=? WHERE user_id=?", $params);
+            $params = array($user->getAnonId(), $user->getRotatingSection(),
+                            $this->submitty_db->convertBoolean($user->getMuteForum()),
+                            $this->submitty_db->convertBoolean($user->getMuteOhQueue()),
+                            $user->getId());
+            $this->course_db->query("UPDATE users SET anon_id=?, rotating_section=?, mute_forum=?, mute_oh_queue=? WHERE user_id=?", $params);
             $this->updateGradingRegistration($user->getId(), $user->getGroup(), $user->getGradingRegistrationSections());
         }
     }

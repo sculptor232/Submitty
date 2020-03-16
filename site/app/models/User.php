@@ -31,6 +31,10 @@ use app\exceptions\ValidationException;
  * @method int getRotatingSection()
  * @method void setManualRegistration(bool $flag)
  * @method bool isManualRegistration()
+ * @method void setMuteForum(bool $flag)
+ * @method bool getMuteForum()
+ * @method void setMuteOhQueue(bool $flag)
+ * @method bool getMuteOhQueue()
  * @method void setUserUpdated(bool $flag)
  * @method bool isUserUpdated()
  * @method void setInstructorUpdated(bool $flag)
@@ -103,6 +107,11 @@ class User extends AbstractModel {
      *           to be shifted to a null registration section or rotating section like a dropped student
      */
     protected $manual_registration = false;
+
+    /** @prop @var bool is the user allowed to use the forum? */
+    protected $mute_forum = false;
+    /** @prop @var bool is the user allowed to use the office hours/lab queue? */
+    protected $mute_oh_queue = false;
 
     /**
      * @prop
@@ -181,6 +190,8 @@ class User extends AbstractModel {
         $this->registration_section = isset($details['registration_section']) ? $details['registration_section'] : null;
         $this->rotating_section = isset($details['rotating_section']) ? intval($details['rotating_section']) : null;
         $this->manual_registration = isset($details['manual_registration']) && $details['manual_registration'] === true;
+        $this->mute_forum = isset($details['mute_forum']) && $details['mute_forum'] === true;
+        $this->mute_oh_queue = isset($details['mute_oh_queue']) && $details['mute_oh_queue'] === true;
         if (isset($details['grading_registration_sections'])) {
             $this->setGradingRegistrationSections($details['grading_registration_sections']);
         }
