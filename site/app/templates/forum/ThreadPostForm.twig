@@ -30,7 +30,7 @@
             <button title="Insert bold text" type="button" onclick="addMarkdownCode(2, $(this).closest('.thread-post-form').find('[name=thread_post_content]'))" class="btn btn-default btn_markdown key_to_click"  tabindex="0">Bold <i class="fas fa-bold fa-1x"></i></button>
             <button title="Insert italic text" type="button" onclick="addMarkdownCode(3, $(this).closest('.thread-post-form').find('[name=thread_post_content]'))" class="btn btn-default btn_markdown key_to_click"  tabindex="0">Italics <i class="fas fa-italic fa-1x"></i></button>
         </span>
-    {% if show_merge_thread_button and core.getUser().accessGrading() %}
+    {% if show_merge_thread_button and core.getUser().accessGrading() and not mute_forum %}
         <a class="btn btn-primary key_to_click" tabindex = "0" id="merge-thread-btn" title="Merge Threads" onclick="$('#merge-threads').css('display', 'block');">Merge Threads</a>
     {% endif %}
     {% if show_lock_date and core.getUser().getGroup() <= 2 %}

@@ -17,16 +17,21 @@ class ForumThreadView extends AbstractView {
         $this->core->getOutput()->addBreadcrumb("Discussion Forum", $this->core->buildCourseUrl(['forum']), null, $use_as_heading = true);
         $this->core->getOutput()->addBreadcrumb("Search");
 
+        $create_thread_btn = null;
+        if(!$this->core->getUser()->getMuteForum()){
+          $create_thread_btn = array(
+              "required_rank" => 4,
+              "display_text" => 'Create Thread',
+              "style" => 'position:absolute;top:3px;right:0px',
+              "link" => array(true, $this->core->buildCourseUrl(['forum', 'threads', 'new'])),
+              "optional_class" => '',
+              "title" => 'Create Thread',
+              "onclick" => array(false)
+          );
+        }
+
         $buttons = array(
-            array(
-                "required_rank" => 4,
-                "display_text" => 'Create Thread',
-                "style" => 'position:absolute;top:3px;right:0px',
-                "link" => array(true, $this->core->buildCourseUrl(['forum', 'threads', 'new'])),
-                "optional_class" => '',
-                "title" => 'Create Thread',
-                "onclick" => array(false)
-            ),
+            $create_thread_btn,
             array(
                 "required_rank" => 4,
                 "display_text" => 'Back to Threads',
@@ -203,16 +208,21 @@ class ForumThreadView extends AbstractView {
             $cookieSelectedUnread = $_COOKIE['unread_select_value'];
         }
 
+        $create_thread_btn = null;
+        if(!$this->core->getUser()->getMuteForum()){
+          $create_thread_btn = array(
+              "required_rank" => 4,
+              "display_text" => 'Create Thread',
+              "style" => 'position:absolute;top:3px;right:0px',
+              "link" => array(true, $this->core->buildCourseUrl(['forum', 'threads', 'new'])),
+              "optional_class" => '',
+              "title" => 'Create Thread',
+              "onclick" => array(false)
+          );
+        }
+
         $default_button = array(
-            array(
-                "required_rank" => 4,
-                "display_text" => 'Create Thread',
-                "style" => 'position:absolute;top:3px;right:0px',
-                "link" => array(true, $this->core->buildCourseUrl(['forum', 'threads', 'new'])),
-                "optional_class" => '',
-                "title" => 'Create Thread',
-                "onclick" => array(false)
-            )
+            $create_thread_btn
         );
 
         $button_params = [
@@ -359,7 +369,8 @@ class ForumThreadView extends AbstractView {
                 "search_url" => $this->core->buildCourseUrl(['forum', 'search']),
                 "merge_url" => $this->core->buildCourseUrl(['forum', 'threads', 'merge']),
                 "split_url" => $this->core->buildCourseUrl(['forum', 'posts', 'split']),
-                "post_content_limit" => $post_content_limit
+                "post_content_limit" => $post_content_limit,
+                "mute_forum" => $this->core->getUser()->getMuteForum()
             ]);
         }
         else {
@@ -383,7 +394,8 @@ class ForumThreadView extends AbstractView {
                 "post_box_id" => $generatePostContent["post_box_id"],
                 "merge_url" => $this->core->buildCourseUrl(['forum', 'threads', 'merge']),
                 "split_url" => $this->core->buildCourseUrl(['forum', 'posts', 'split']),
-                "post_content_limit" => $post_content_limit
+                "post_content_limit" => $post_content_limit,
+                "mute_forum" => $this->core->getUser()->getMuteForum()
             ]);
 
             $return = $this->core->getOutput()->renderJsonSuccess(["html" => json_encode($return)]);
@@ -532,7 +544,8 @@ class ForumThreadView extends AbstractView {
                 "post_box_id" => $post_box_id,
                 "total_attachments" => $totalAttachments,
                 "merge_url" => $this->core->buildCourseUrl(['forum', 'threads', 'merge']),
-                "split_url" => $this->core->buildCourseUrl(['forum', 'posts', 'split'])
+                "split_url" => $this->core->buildCourseUrl(['forum', 'posts', 'split']),
+                "mute_forum" => $this->core->getUser()->getMuteForum()
             ]);
         }
         else {

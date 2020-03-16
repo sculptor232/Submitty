@@ -11,6 +11,8 @@ use app\libraries\FileUtils;
 use app\libraries\DateUtils;
 use app\libraries\routers\AccessControl;
 use Symfony\Component\Routing\Annotation\Route;
+use app\libraries\response\Response;
+use app\libraries\response\RedirectResponse;
 
 /**
  * Class ForumHomeController
@@ -53,6 +55,13 @@ class ForumController extends AbstractController {
      * @Route("/{_semester}/{_course}/forum/threads/status", methods={"POST"})
      */
     public function changeThreadStatus($status, $thread_id = null) {
+        if($this->core->getUser()->getMuteForum()){
+          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['forum']))
+          );
+        }
+
         if (is_null($thread_id)) {
             $thread_id = $_POST['thread_id'];
         }
@@ -138,6 +147,13 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.modify_category")
      */
     public function addNewCategory($category = []) {
+        if($this->core->getUser()->getMuteForum()){
+          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['forum']))
+          );
+        }
+
         $result = array();
         if (!empty($_POST["newCategory"])) {
             $category = trim($_POST["newCategory"]);
@@ -174,6 +190,13 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.modify_category")
      */
     public function deleteCategory() {
+        if($this->core->getUser()->getMuteForum()){
+          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['forum']))
+          );
+        }
+
         if (!empty($_POST["deleteCategory"])) {
             $category = (int) $_POST["deleteCategory"];
             if (!$this->isValidCategories(array($category))) {
@@ -201,6 +224,13 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.modify_category")
      */
     public function editCategory() {
+        if($this->core->getUser()->getMuteForum()){
+          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['forum']))
+          );
+        }
+
         $category_id = $_POST["category_id"];
         $category_desc = null;
         $category_color = null;
@@ -230,6 +260,13 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.modify_category")
      */
     public function reorderCategories() {
+        if($this->core->getUser()->getMuteForum()){
+          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['forum']))
+          );
+        }
+
         $rows = $this->core->getQueries()->getCategories();
 
         $current_order = array();
@@ -257,6 +294,13 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.publish")
      */
     public function publishThread() {
+        if($this->core->getUser()->getMuteForum()){
+          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['forum']))
+          );
+        }
+
         $markdown = !empty($_POST['markdown_status']);
         $current_user_id = $this->core->getUser()->getId();
         $result = array();
@@ -353,6 +397,13 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.publish")
      */
     public function publishPost() {
+        if($this->core->getUser()->getMuteForum()){
+          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['forum']))
+          );
+        }
+
         $current_user_id = $this->core->getUser()->getId();
         $result = array();
         $parent_id = (!empty($_POST["parent_id"])) ? htmlentities($_POST["parent_id"], ENT_QUOTES | ENT_HTML5, 'UTF-8') : -1;
@@ -437,6 +488,13 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.modify_announcement")
      */
     public function alterAnnouncement($type) {
+        if($this->core->getUser()->getMuteForum()){
+          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['forum']))
+          );
+        }
+
         $thread_id = $_POST["thread_id"];
         $this->core->getQueries()->setAnnouncement($thread_id, $type);
 
@@ -464,6 +522,13 @@ class ForumController extends AbstractController {
      * @Route("/{_semester}/{_course}/forum/posts/modify", methods={"POST"})
      */
     public function alterPost($modify_type) {
+        if($this->core->getUser()->getMuteForum()){
+          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['forum']))
+          );
+        }
+
         $full_course_name = $this->core->getFullCourseName();
         $post_id = $_POST["post_id"] ?? $_POST["edit_post_id"];
         $post = $this->core->getQueries()->getPost($post_id);
@@ -596,6 +661,13 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.merge_thread")
      */
     public function mergeThread() {
+        if($this->core->getUser()->getMuteForum()){
+          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['forum']))
+          );
+        }
+
         $current_user_id = $this->core->getUser()->getId();
         $parent_thread_id = $_POST["merge_thread_parent"];
         $child_thread_id = $_POST["merge_thread_child"];
@@ -645,6 +717,13 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.merge_thread")
      */
     public function splitThread() {
+        if($this->core->getUser()->getMuteForum()){
+          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['forum']))
+          );
+        }
+
         $title = $_POST["split_post_input"];
         $post_id = $_POST["split_post_id"];
         $thread_id = -1;
@@ -931,6 +1010,13 @@ class ForumController extends AbstractController {
      * @Route("/{_semester}/{_course}/forum/threads/new", methods={"GET"})
      */
     public function showCreateThread() {
+        if($this->core->getUser()->getMuteForum()){
+          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['forum']))
+          );
+        }
+
         if (empty($this->core->getQueries()->getCategories())) {
             $this->core->redirect($this->core->buildCourseUrl(['forum', 'threads']));
             return;

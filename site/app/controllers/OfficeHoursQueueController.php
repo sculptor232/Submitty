@@ -26,7 +26,15 @@ class OfficeHoursQueueController extends AbstractController {
     * @return Response
     */
     public function showQueue($full_history = false) {
+        if ($this->core->getUser()->getMuteOhQueue()) {
+            $this->core->addErrorMessage('You have been banned from using the Office Hours/Lab Queue. Please speak with the instructor if you think this is a mistake.');
+            return Response::RedirectOnlyResponse(
+                new RedirectResponse($this->core->buildCourseUrl(['home']))
+            );
+        }
+
         if (!$this->core->getConfig()->isQueueEnabled()) {
+            $this->core->addErrorMessage('The office hours/lab queue is not enabled for this course');
             return Response::RedirectOnlyResponse(
                 new RedirectResponse($this->core->buildCourseUrl(['home']))
             );
@@ -47,6 +55,13 @@ class OfficeHoursQueueController extends AbstractController {
     * @return Response
     */
     public function openQueue() {
+        if($this->core->getUser()->getMuteOhQueue()){
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['office_hours_queue']))
+          );
+        }
+
+
         if (empty($_POST['code'])) {
             $this->core->addErrorMessage("Missing queue name");
             return Response::RedirectOnlyResponse(
@@ -93,6 +108,12 @@ class OfficeHoursQueueController extends AbstractController {
     * @return Response
     */
     public function addPerson($queue_code) {
+        if($this->core->getUser()->getMuteOhQueue()){
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['office_hours_queue']))
+          );
+        }
+
         if (empty($_POST['name'])) {
             $this->core->addErrorMessage("Missing user's name");
             return Response::RedirectOnlyResponse(
@@ -158,6 +179,12 @@ class OfficeHoursQueueController extends AbstractController {
     * @return Response
     */
     public function removePerson($queue_code) {
+        if($this->core->getUser()->getMuteOhQueue()){
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['office_hours_queue']))
+          );
+        }
+
         if (empty($_POST['user_id'])) {
             $this->core->addErrorMessage("Missing user ID");
             return Response::RedirectOnlyResponse(
@@ -198,6 +225,12 @@ class OfficeHoursQueueController extends AbstractController {
     * @return Response
     */
     public function restorePerson($queue_code) {
+        if($this->core->getUser()->getMuteOhQueue()){
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['office_hours_queue']))
+          );
+        }
+
         if (empty($_POST['entry_id'])) {
             $this->core->addErrorMessage("Missing entry ID");
             return Response::RedirectOnlyResponse(
@@ -224,6 +257,12 @@ class OfficeHoursQueueController extends AbstractController {
     * @return Response
     */
     public function startHelpPerson($queue_code) {
+        if($this->core->getUser()->getMuteOhQueue()){
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['office_hours_queue']))
+          );
+        }
+
         if (empty($_POST['user_id'])) {
             $this->core->addErrorMessage("Missing user ID");
             return Response::RedirectOnlyResponse(
@@ -250,6 +289,12 @@ class OfficeHoursQueueController extends AbstractController {
     * @return Response
     */
     public function finishHelpPerson($queue_code) {
+        if($this->core->getUser()->getMuteOhQueue()){
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['office_hours_queue']))
+          );
+        }
+
         if (empty($_POST['user_id'])) {
             $this->core->addErrorMessage("Missing entry ID");
             return Response::RedirectOnlyResponse(
@@ -290,6 +335,12 @@ class OfficeHoursQueueController extends AbstractController {
     * @return Response
     */
     public function emptyQueue($queue_code) {
+        if($this->core->getUser()->getMuteOhQueue()){
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['office_hours_queue']))
+          );
+        }
+
         if (empty($queue_code)) {
             $this->core->addErrorMessage("Missing queue name");
             return Response::RedirectOnlyResponse(
@@ -310,6 +361,12 @@ class OfficeHoursQueueController extends AbstractController {
     * @return Response
     */
     public function toggleQueue($queue_code) {
+        if($this->core->getUser()->getMuteOhQueue()){
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['office_hours_queue']))
+          );
+        }
+
         if (empty($queue_code)) {
             $this->core->addErrorMessage("Missing queue name");
             return Response::RedirectOnlyResponse(
@@ -337,6 +394,12 @@ class OfficeHoursQueueController extends AbstractController {
     * @return Response
     */
     public function deleteQueue($queue_code) {
+        if($this->core->getUser()->getMuteOhQueue()){
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['office_hours_queue']))
+          );
+        }
+
         if (empty($queue_code)) {
             $this->core->addErrorMessage("Missing queue name");
             return Response::RedirectOnlyResponse(
@@ -356,6 +419,12 @@ class OfficeHoursQueueController extends AbstractController {
     * @return Response
     */
     public function checkUpdates() {
+        if($this->core->getUser()->getMuteOhQueue()){
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['office_hours_queue']))
+          );
+        }
+
         return Response::JsonOnlyResponse(
             JsonResponse::getSuccessResponse($this->core->getQueries()->getLastQueueUpdate())
         );
@@ -367,6 +436,12 @@ class OfficeHoursQueueController extends AbstractController {
     * @return Response
     */
     public function changeToken($queue_code) {
+        if($this->core->getUser()->getMuteOhQueue()){
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['office_hours_queue']))
+          );
+        }
+
         if (empty($queue_code)) {
             $this->core->addErrorMessage("Missing queue name");
             return Response::RedirectOnlyResponse(
@@ -395,6 +470,12 @@ class OfficeHoursQueueController extends AbstractController {
     * @return Response
     */
     public function showCurrentQueue() {
+        if($this->core->getUser()->getMuteOhQueue()){
+          return Response::RedirectOnlyResponse(
+              new RedirectResponse($this->core->buildCourseUrl(['office_hours_queue']))
+          );
+        }
+
         if (!$this->core->getConfig()->isQueueEnabled()) {
             return Response::RedirectOnlyResponse(
                 new RedirectResponse($this->core->buildCourseUrl(['home']))

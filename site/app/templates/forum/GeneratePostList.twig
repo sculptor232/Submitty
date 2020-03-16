@@ -41,13 +41,14 @@
         "show_unresolve": show_unresolve,
         "render_markdown": post_d.render_markdown,
         "has_history": post_d.has_history,
-        "thread_previously_merged": post_d.thread_previously_merged
+        "thread_previously_merged": post_d.thread_previously_merged,
+        "mute_forum": mute_forum
     } only %}
 
 {% endfor %}
 
 
-{% if (isThreadLocked != 1 or accessFullGrading) and includeReply %}
+{% if (isThreadLocked != 1 or accessFullGrading) and includeReply and not mute_forum %}
 
     <hr id="post-hr" />
 

@@ -36,7 +36,7 @@
 
     <hr style="margin-bottom: 3px;">
 
-    {% if display_option == 'tree' %}
+    {% if display_option == 'tree' and not mute_forum %}
 
         {% if not (isThreadLocked != 1 or userAccessFullGrading) %}
             {# pass #}
@@ -76,7 +76,7 @@
         {% endif %}
 
         {% if userGroup <= 3 or post.author_user_id == current_user %}
-            {% if not (isThreadLocked != 1 or userAccessFullGrading == true) %}
+            {% if not (isThreadLocked != 1 or userAccessFullGrading == true) or mute_forum %}
                 {#pass#}
             {% else %}
                 <a class="post_button delete-post-button key_to_click" tabindex = "0" onClick="deletePostToggle({{ post_buttons.delete.ud_toggle_status }}, {{ post.thread_id }}, {{ post.id }}, '{{ post.author_user_id }}', '{{ post_date }}', '{{ csrf_token }}' )" title="{{ post_buttons.delete.ud_button_title }}" aria-label="{{ post_buttons.delete.ud_button_title }}"><i class="fa {{ post_buttons.delete.ud_button_icon }}"></i></a>
@@ -126,4 +126,3 @@
 
     </form>
 {% endif %}
-
