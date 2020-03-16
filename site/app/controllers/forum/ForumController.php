@@ -55,11 +55,11 @@ class ForumController extends AbstractController {
      * @Route("/{_semester}/{_course}/forum/threads/status", methods={"POST"})
      */
     public function changeThreadStatus($status, $thread_id = null) {
-        if($this->core->getUser()->getMuteForum()){
-          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
-          return Response::RedirectOnlyResponse(
-              new RedirectResponse($this->core->buildCourseUrl(['forum']))
-          );
+        if ($this->core->getUser()->getMuteForum()) {
+            $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+            return Response::RedirectOnlyResponse(
+                new RedirectResponse($this->core->buildCourseUrl(['forum']))
+            );
         }
 
         if (is_null($thread_id)) {
@@ -147,11 +147,11 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.modify_category")
      */
     public function addNewCategory($category = []) {
-        if($this->core->getUser()->getMuteForum()){
-          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
-          return Response::RedirectOnlyResponse(
-              new RedirectResponse($this->core->buildCourseUrl(['forum']))
-          );
+        if ($this->core->getUser()->getMuteForum()) {
+            $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+            return Response::RedirectOnlyResponse(
+                new RedirectResponse($this->core->buildCourseUrl(['forum']))
+            );
         }
 
         $result = array();
@@ -190,11 +190,11 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.modify_category")
      */
     public function deleteCategory() {
-        if($this->core->getUser()->getMuteForum()){
-          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
-          return Response::RedirectOnlyResponse(
-              new RedirectResponse($this->core->buildCourseUrl(['forum']))
-          );
+        if ($this->core->getUser()->getMuteForum()) {
+            $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+            return Response::RedirectOnlyResponse(
+                new RedirectResponse($this->core->buildCourseUrl(['forum']))
+            );
         }
 
         if (!empty($_POST["deleteCategory"])) {
@@ -224,11 +224,11 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.modify_category")
      */
     public function editCategory() {
-        if($this->core->getUser()->getMuteForum()){
-          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
-          return Response::RedirectOnlyResponse(
-              new RedirectResponse($this->core->buildCourseUrl(['forum']))
-          );
+        if ($this->core->getUser()->getMuteForum()) {
+            $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+            return Response::RedirectOnlyResponse(
+                new RedirectResponse($this->core->buildCourseUrl(['forum']))
+            );
         }
 
         $category_id = $_POST["category_id"];
@@ -260,11 +260,11 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.modify_category")
      */
     public function reorderCategories() {
-        if($this->core->getUser()->getMuteForum()){
-          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
-          return Response::RedirectOnlyResponse(
-              new RedirectResponse($this->core->buildCourseUrl(['forum']))
-          );
+        if ($this->core->getUser()->getMuteForum()) {
+            $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+            return Response::RedirectOnlyResponse(
+                new RedirectResponse($this->core->buildCourseUrl(['forum']))
+            );
         }
 
         $rows = $this->core->getQueries()->getCategories();
@@ -294,11 +294,11 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.publish")
      */
     public function publishThread() {
-        if($this->core->getUser()->getMuteForum()){
-          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
-          return Response::RedirectOnlyResponse(
-              new RedirectResponse($this->core->buildCourseUrl(['forum']))
-          );
+        if ($this->core->getUser()->getMuteForum()) {
+            $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+            return Response::RedirectOnlyResponse(
+                new RedirectResponse($this->core->buildCourseUrl(['forum']))
+            );
         }
 
         $markdown = !empty($_POST['markdown_status']);
@@ -397,11 +397,11 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.publish")
      */
     public function publishPost() {
-        if($this->core->getUser()->getMuteForum()){
-          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
-          return Response::RedirectOnlyResponse(
-              new RedirectResponse($this->core->buildCourseUrl(['forum']))
-          );
+        if ($this->core->getUser()->getMuteForum()) {
+            $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+            return Response::RedirectOnlyResponse(
+                new RedirectResponse($this->core->buildCourseUrl(['forum']))
+            );
         }
 
         $current_user_id = $this->core->getUser()->getId();
@@ -488,11 +488,11 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.modify_announcement")
      */
     public function alterAnnouncement($type) {
-        if($this->core->getUser()->getMuteForum()){
-          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
-          return Response::RedirectOnlyResponse(
-              new RedirectResponse($this->core->buildCourseUrl(['forum']))
-          );
+        if ($this->core->getUser()->getMuteForum()) {
+            $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+            return Response::RedirectOnlyResponse(
+                new RedirectResponse($this->core->buildCourseUrl(['forum']))
+            );
         }
 
         $thread_id = $_POST["thread_id"];
@@ -522,11 +522,11 @@ class ForumController extends AbstractController {
      * @Route("/{_semester}/{_course}/forum/posts/modify", methods={"POST"})
      */
     public function alterPost($modify_type) {
-        if($this->core->getUser()->getMuteForum()){
-          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
-          return Response::RedirectOnlyResponse(
-              new RedirectResponse($this->core->buildCourseUrl(['forum']))
-          );
+        if ($this->core->getUser()->getMuteForum()) {
+            $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+            return Response::RedirectOnlyResponse(
+                new RedirectResponse($this->core->buildCourseUrl(['forum']))
+            );
         }
 
         $full_course_name = $this->core->getFullCourseName();
@@ -661,11 +661,11 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.merge_thread")
      */
     public function mergeThread() {
-        if($this->core->getUser()->getMuteForum()){
-          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
-          return Response::RedirectOnlyResponse(
-              new RedirectResponse($this->core->buildCourseUrl(['forum']))
-          );
+        if ($this->core->getUser()->getMuteForum()) {
+            $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+            return Response::RedirectOnlyResponse(
+                new RedirectResponse($this->core->buildCourseUrl(['forum']))
+            );
         }
 
         $current_user_id = $this->core->getUser()->getId();
@@ -717,11 +717,11 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.merge_thread")
      */
     public function splitThread() {
-        if($this->core->getUser()->getMuteForum()){
-          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
-          return Response::RedirectOnlyResponse(
-              new RedirectResponse($this->core->buildCourseUrl(['forum']))
-          );
+        if ($this->core->getUser()->getMuteForum()) {
+            $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+            return Response::RedirectOnlyResponse(
+                new RedirectResponse($this->core->buildCourseUrl(['forum']))
+            );
         }
 
         $title = $_POST["split_post_input"];
@@ -1010,11 +1010,11 @@ class ForumController extends AbstractController {
      * @Route("/{_semester}/{_course}/forum/threads/new", methods={"GET"})
      */
     public function showCreateThread() {
-        if($this->core->getUser()->getMuteForum()){
-          $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
-          return Response::RedirectOnlyResponse(
-              new RedirectResponse($this->core->buildCourseUrl(['forum']))
-          );
+        if ($this->core->getUser()->getMuteForum()) {
+            $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+            return Response::RedirectOnlyResponse(
+                new RedirectResponse($this->core->buildCourseUrl(['forum']))
+            );
         }
 
         if (empty($this->core->getQueries()->getCategories())) {

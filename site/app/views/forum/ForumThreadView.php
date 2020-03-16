@@ -18,8 +18,8 @@ class ForumThreadView extends AbstractView {
         $this->core->getOutput()->addBreadcrumb("Search");
 
         $create_thread_btn = null;
-        if(!$this->core->getUser()->getMuteForum()){
-          $create_thread_btn = array(
+        if (!$this->core->getUser()->getMuteForum()) {
+            $create_thread_btn = array(
               "required_rank" => 4,
               "display_text" => 'Create Thread',
               "style" => 'position:absolute;top:3px;right:0px',
@@ -27,7 +27,7 @@ class ForumThreadView extends AbstractView {
               "optional_class" => '',
               "title" => 'Create Thread',
               "onclick" => array(false)
-          );
+            );
         }
 
         $buttons = array(
@@ -209,8 +209,8 @@ class ForumThreadView extends AbstractView {
         }
 
         $create_thread_btn = null;
-        if(!$this->core->getUser()->getMuteForum()){
-          $create_thread_btn = array(
+        if (!$this->core->getUser()->getMuteForum()) {
+            $create_thread_btn = array(
               "required_rank" => 4,
               "display_text" => 'Create Thread',
               "style" => 'position:absolute;top:3px;right:0px',
@@ -218,7 +218,7 @@ class ForumThreadView extends AbstractView {
               "optional_class" => '',
               "title" => 'Create Thread',
               "onclick" => array(false)
-          );
+            );
         }
 
         $default_button = array(
