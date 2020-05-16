@@ -188,6 +188,7 @@ class SubmissionController extends AbstractController {
                 $this->core->getOutput()->addInternalJs('forum.js');
                 $this->core->getOutput()->addInternalCss('grade-inquiry.css');
                 $this->core->getOutput()->addInternalJs('grade-inquiry.js');
+                $this->core->getOutput()->enableMobileViewport();
                 $this->core->getOutput()->renderOutput(
                     array('submission', 'Homework'),
                     'showGradeable',
