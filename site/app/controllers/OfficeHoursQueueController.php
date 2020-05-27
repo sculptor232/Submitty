@@ -25,13 +25,13 @@ class OfficeHoursQueueController extends AbstractController {
     * Checks if the user is allowed to use the office hours queue
     * if they are banned, return a redirect
     */
-    private function isMuted(){
-      if ($this->core->getUser()->getMuteOhQueue()) {
-        $this->core->addErrorMessage('You have been banned from using the Office Hours/Lab Queue. Please speak with the instructor if you think this is a mistake.');
-        return MultiResponse::RedirectOnlyResponse(
-            new RedirectResponse($this->core->buildCourseUrl(['home']))
-        );
-      }
+    private function isMuted() {
+        if ($this->core->getUser()->getMuteOhQueue()) {
+            $this->core->addErrorMessage('You have been banned from using the Office Hours/Lab Queue. Please speak with the instructor if you think this is a mistake.');
+            return MultiResponse::RedirectOnlyResponse(
+                new RedirectResponse($this->core->buildCourseUrl(['home']))
+            );
+        }
     }
 
     /**
@@ -39,8 +39,8 @@ class OfficeHoursQueueController extends AbstractController {
     * @return MultiResponse
     */
     public function showQueue($full_history = false) {
-        if($muted = $this->isMuted()){
-          return $muted;
+        if ($muted = $this->isMuted()) {
+            return $muted;
         }
 
         if (!$this->core->getConfig()->isQueueEnabled()) {
@@ -64,8 +64,8 @@ class OfficeHoursQueueController extends AbstractController {
     * @return MultiResponse
     */
     public function openQueue() {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         if (empty($_POST['code'])) {
@@ -114,8 +114,8 @@ class OfficeHoursQueueController extends AbstractController {
     * @return MultiResponse
     */
     public function addPerson($queue_code) {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         if (empty($_POST['name'])) {
@@ -183,8 +183,8 @@ class OfficeHoursQueueController extends AbstractController {
     * @return MultiResponse
     */
     public function removePerson($queue_code) {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         if (empty($_POST['user_id'])) {
@@ -227,8 +227,8 @@ class OfficeHoursQueueController extends AbstractController {
     * @return MultiResponse
     */
     public function restorePerson($queue_code) {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         if (empty($_POST['entry_id'])) {
@@ -257,8 +257,8 @@ class OfficeHoursQueueController extends AbstractController {
     * @return MultiResponse
     */
     public function startHelpPerson($queue_code) {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         if (empty($_POST['user_id'])) {
@@ -287,8 +287,8 @@ class OfficeHoursQueueController extends AbstractController {
     * @return MultiResponse
     */
     public function finishHelpPerson($queue_code) {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         if (empty($_POST['user_id'])) {
@@ -331,8 +331,8 @@ class OfficeHoursQueueController extends AbstractController {
     * @return MultiResponse
     */
     public function emptyQueue($queue_code) {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         if (empty($queue_code)) {
@@ -355,8 +355,8 @@ class OfficeHoursQueueController extends AbstractController {
     * @return MultiResponse
     */
     public function toggleQueue($queue_code) {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         if (empty($queue_code)) {
@@ -386,8 +386,8 @@ class OfficeHoursQueueController extends AbstractController {
     * @return MultiResponse
     */
     public function deleteQueue($queue_code) {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         if (empty($queue_code)) {
@@ -409,8 +409,8 @@ class OfficeHoursQueueController extends AbstractController {
     * @return MultiResponse
     */
     public function checkUpdates() {
-        if($muted = $this->isMuted()){
-          return $muted;
+        if ($muted = $this->isMuted()) {
+            return $muted;
         }
 
         return MultiResponse::JsonOnlyResponse(
@@ -424,8 +424,8 @@ class OfficeHoursQueueController extends AbstractController {
     * @return MultiResponse
     */
     public function changeToken($queue_code) {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         if (empty($queue_code)) {
@@ -460,8 +460,8 @@ class OfficeHoursQueueController extends AbstractController {
     * @return MultiResponse
     */
     public function showCurrentQueue() {
-        if($muted = $this->isMuted()){
-          return $muted;
+        if ($muted = $this->isMuted()) {
+            return $muted;
         }
 
         if (!$this->core->getConfig()->isQueueEnabled()) {
@@ -486,8 +486,8 @@ class OfficeHoursQueueController extends AbstractController {
     * @return MultiResponse
     */
     public function showQueueHistory($full_history = false) {
-        if($muted = $this->isMuted()){
-          return $muted;
+        if ($muted = $this->isMuted()) {
+            return $muted;
         }
 
         if (!$this->core->getConfig()->isQueueEnabled()) {
@@ -512,8 +512,8 @@ class OfficeHoursQueueController extends AbstractController {
     * @return MultiResponse
     */
     public function showNewStatus() {
-        if($muted = $this->isMuted()){
-          return $muted;
+        if ($muted = $this->isMuted()) {
+            return $muted;
         }
 
         if (!$this->core->getConfig()->isQueueEnabled()) {

@@ -56,8 +56,8 @@ class ForumController extends AbstractController {
      * @Route("/{_semester}/{_course}/forum/threads/status", methods={"POST"})
      */
     public function changeThreadStatus($status, $thread_id = null) {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         if (is_null($thread_id)) {
@@ -145,8 +145,8 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.modify_category")
      */
     public function addNewCategory($category = []) {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         $result = array();
@@ -185,8 +185,8 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.modify_category")
      */
     public function deleteCategory() {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         if (!empty($_POST["deleteCategory"])) {
@@ -216,8 +216,8 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.modify_category")
      */
     public function editCategory() {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         $category_id = $_POST["category_id"];
@@ -249,8 +249,8 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.modify_category")
      */
     public function reorderCategories() {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         $rows = $this->core->getQueries()->getCategories();
@@ -280,8 +280,8 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.publish")
      */
     public function publishThread() {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         $markdown = !empty($_POST['markdown_status']);
@@ -381,8 +381,8 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.publish")
      */
     public function publishPost() {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         $current_user_id = $this->core->getUser()->getId();
@@ -469,8 +469,8 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.modify_announcement")
      */
     public function alterAnnouncement($type) {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         $thread_id = $_POST["thread_id"];
@@ -500,8 +500,8 @@ class ForumController extends AbstractController {
      * @Route("/{_semester}/{_course}/forum/posts/modify", methods={"POST"})
      */
     public function alterPost($modify_type) {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         $full_course_name = $this->core->getFullCourseName();
@@ -636,8 +636,8 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.merge_thread")
      */
     public function mergeThread() {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         $current_user_id = $this->core->getUser()->getId();
@@ -689,8 +689,8 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.merge_thread")
      */
     public function splitThread() {
-        if($this->isMuted()){
-          return;
+        if ($this->isMuted()) {
+            return;
         }
 
         $title = $_POST["split_post_input"];
@@ -985,8 +985,8 @@ class ForumController extends AbstractController {
      * @Route("/{_semester}/{_course}/forum/threads/new", methods={"GET"})
      */
     public function showCreateThread() {
-        if($muted = $this->isMuted()){
-          return $muted;
+        if ($muted = $this->isMuted()) {
+            return $muted;
         }
 
         if (empty($this->core->getQueries()->getCategories())) {
@@ -1001,8 +1001,8 @@ class ForumController extends AbstractController {
      * @AccessControl(permission="forum.view_modify_category")
      */
     public function showCategories() {
-        if($muted = $this->isMuted()){
-          return $muted;
+        if ($muted = $this->isMuted()) {
+            return $muted;
         }
         $this->core->getOutput()->renderOutput('forum\ForumThread', 'showCategories', $this->getAllowedCategoryColor());
     }
@@ -1141,12 +1141,12 @@ class ForumController extends AbstractController {
     * Checks if the user is allowed to use the office hours queue
     * if they are banned, return a redirect
     */
-    private function isMuted(){
-      if ($this->core->getUser()->getMuteForum()) {
-        $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
-        return MultiResponse::RedirectOnlyResponse(
-            new RedirectResponse($this->core->buildCourseUrl(['forum']))
-        );
-      }
+    private function isMuted() {
+        if ($this->core->getUser()->getMuteForum()) {
+            $this->core->addErrorMessage('You have been banned from modifying the forum. Please speak with the instructor if you think this is a mistake.');
+            return MultiResponse::RedirectOnlyResponse(
+                new RedirectResponse($this->core->buildCourseUrl(['forum']))
+            );
+        }
     }
 }
